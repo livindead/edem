@@ -1,0 +1,53 @@
+<ion-view view-title="Login">
+	<ion-content class="padding">
+		<div class="row">
+			<div class="col">
+				<div class="text-input-number">
+					<p class="img-top-avatar">
+						<img src="img/avatar.png">
+						<button class="button edit-profile-img"></button>
+					</p>
+				</div>
+				<form >
+					<input type="hidden" ng-init="user.avatar = '' " ng-model="user.avatar"> 
+					<div class="list list-inset list-singup-forms">
+						<div class="item-required">*</div>
+						<label class="item item-input">
+							<input ng-model="user.name" type="text" placeholder="{{user.name}}">
+						</label>
+						<div class="item-required">*</div>
+						<label class="item item-input">
+							<input ng-model="user.lname" type="text" placeholder="{{user.lname}}">
+						</label>
+						<div class="item-required">*</div>
+						<label class="item item-input">
+							<input ng-model="user.phone"  type="text" placeholder="{{user.phone}}">
+						</label>
+						<label class="item item-input">
+							<input ng-model="user.email" ng-init="user.email = '' " type="text"  placeholder="E-mail">
+						</label>
+					</div>
+					<div class="title-avto">
+						<p>Ваш автомобиль</p>
+					</div>
+					<div class="list list-inset list-singup-forms">
+						<div class="item-required">*</div>
+						<label class="item item-input">
+							<input ng-model="user.car_title" type="text" placeholder="Модель">
+						</label>
+						<div class="item-required">*</div>
+						<label class="item item-input number-car">
+							<input ng-model="user.car_number" ng-init="user.car_number='' "  type="text" placeholder="Гос Номер Автомобиля">
+						</label>
+						<a ng-click="changeColor()" href="" ng-class="user.car_color" class="button round-button">Цвет</a>
+					</div>
+					<div class="buttons-reg">
+						<button ng-click="updateUser(user)" class="button button-full green-button">
+							СОХРАНИТЬ
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

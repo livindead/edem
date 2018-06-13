@@ -1,0 +1,80 @@
+<ion-modal-view view-title="">
+	<ion-header-bar class="bar-stable menu-top-bar white-menu shadow-menu">
+		<ion-header-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="loginClose()">
+				<img src="img/back-arrow.png">
+			</a>
+			<h1 class="title title-left title-white ">Авторизация</h1>
+		</ion-header-buttons>
+	</ion-header-bar>
+
+  <ion-content class="padding has-header">
+    <div class="row">
+    	<div class="col top-logo">
+    		 <h3 class="title-green">
+    		 	Для оформления заказа вам необходимо войти или зарегистрироваться
+    		 </h3>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col">
+    		<div class="button-bar login-bar">
+				<a ng-click="tabshow=false" ng-class="{'green-button':!tabshow}" class="button">Вход</a>
+				<a ng-click="tabshow=true" ng-class="{'green-button':tabshow}" class="button">Регистрация</a>
+			</div>
+    	</div>
+    </div>
+    <div class="row" ng-hide="tabshow">
+    	<div class="col">
+    		<div class="list list-inset list-login-forms">
+				<form name="loginForm">
+					<label class="item item-input">
+						<input type="tel" name="phone" limit-to="10" placeholder="Ваш телефон без +7" placeholder="Телефон" ng-minlength="5"   ng-model="user.phone" >
+					</label>
+					<label class="item item-input">
+						<input name="password" type="tel" placeholder="Пароль" ng-minlength="4" ng-model="user.password">
+					</label>
+				</form>	
+
+			</div>
+			<p class="recovery-pass" ng-click="resendSMS()"><a href="">Забыли пароль?</a></p>
+			<div class="buttons-reg">
+				<button ng-click="login(user)" class="button button-full green-button">
+				  ВОЙТИ
+				</button>
+			</div>
+    	</div>
+    </div>
+
+    <div class="row" ng-show="tabshow">
+    	<div class="col">
+    		<div class="list list-inset list-singup-forms">
+				<label class="item item-input">
+					<input type="text" ng-model="reg.fname" placeholder="Имя">
+				</label>
+				<label class="item item-input">
+					<input type="text" ng-model="reg.lname" placeholder="Фамилия">
+				</label>
+				<label class="item item-input">
+					<input type="tel" ng-model="reg.phone" autoComplete="off" limit-to="10" placeholder="Телефон без +7" placeholder="Телефон">
+				</label>
+
+				<div class="list list-inset list-singup-forms add-info">
+						<div class="item-required">*</div>
+						<label class="item item-input number-car">
+							<input ng-model="reg.car_number" ng-init="reg.car_number='' "  type="text" placeholder="Гос Номер">
+						</label>
+						<a ng-click="changeColor()" href="" ng-class="userdata.CarColor" class="button round-button">Цвет</a>
+				</div>
+
+			</div>
+			<div class="buttons-reg">
+				<button class="button button-full green-button singup-but" ng-click="reg(reg)">
+				  РЕГИСТРАЦИЯ
+				</button>
+			</div>
+    	</div>
+    </div>
+   
+  </ion-content>
+</ion-modal-view>

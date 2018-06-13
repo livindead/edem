@@ -1,0 +1,24 @@
+	<!--Picker Begin-->
+		<div class="number-picker"  >
+			<div class="number-picker-selecter">
+				<div class="selecter-title">
+					<h3>Выберите количество</h3>
+					<p>{{select.title}}</p> 
+				</div>
+				<div class="selecter-script">
+					<proton:multi-list-picker ng-model="model" ng-init="model = {}" attachment="inline" bind-html="true" done="true" ng-show="true">
+						<proton:multi-list-picker-list strict-matching="true" alias="number" static="true" source="MaxNumber" cycle="true">
+							 
+
+						</proton:multi-list-picker-list>
+					</proton:multi-list-picker>
+
+				</div>
+				<div class="selecter-button">
+					<button ng-click="selectNumber(model.number)" class="button button-clear button-dark">
+						Готово
+					</button>
+				</div>
+			</div>
+		</div>
+	<!--Picker End-->

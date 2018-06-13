@@ -1,0 +1,62 @@
+<ion-view view-title="">
+	<ion-nav-bar class="bar-stable menu-top-bar white-menu profile-bar">
+		<ion-nav-buttons side="left" class="show">
+			<a href="#/app/profile" class="button button-icon button-clear button-back-arrow">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Редактирование</h1>
+			</div>
+			<button ng-click="updateUser(user)" class="button button-icon button-clear ion-android-done">
+			</button>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content class="edit-profile-page has-header">
+		<div class="row">
+			<div class="col">
+				<div class="edit-photo">
+					<img class="edit-photo-img" src="img/map-point-no-photo.png">
+					<img ng-show="file.$valid" class="edit-photo-img-thumb" ngf-thumbnail="picFile" class="thumb">
+
+					<button type="file" ng-model="picFile" class="button button-clear button-edit-photo" ngf-select="uploadImage($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="3MB"> 
+						<img src="img/edit-photo.png">
+
+					</button>
+
+					{{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                     
+                     <div ng-hide="f.done" ng-init="f.done = true" layout="row" layout-sm="column" layout-align="space-around">
+                          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                     </div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="edit-info">
+					<div class="list list-inset list-singup-forms">
+						<label class="item item-input">
+							<input ng-model="user.lname" type="text" placeholder="Фамилия">
+						</label>
+						<label class="item item-input">
+							<input ng-model="user.name" type="text" placeholder="Имя Отчество">
+						</label>
+						<label class="item item-input">
+							<input ng-model="user.car_title" type="text" placeholder="Марка машины">
+						</label>
+						<div class="row no-padding table-input-car-form">
+							<div class="col col-75 no-padding">
+								<label class="item item-input">
+									<input ng-model="user.car_number"  type="text" placeholder="Номер">
+								</label>
+							</div>
+							<div class="col no-padding">
+								<a href="" ng-click="changeColor()" class="button round-button" ng-class="user.car_color">Цвет</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

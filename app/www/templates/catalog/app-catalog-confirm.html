@@ -1,0 +1,89 @@
+<ion-modal-view view-title="Catalog">
+	<ion-header-bar class="bar-stable menu-top-bar white-menu shadow-menu">
+		<ion-header-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="confirmClose()">
+				<img src="img/back-arrow.png">
+			</a>
+			<h1 class="title title-left">Оформление заказа</h1>
+		</ion-header-buttons>
+	</ion-header-bar>
+	<ion-content class="category-menu confirm-order has-header">
+		<ion-spinner class="edim-spiner" ng-show="show2.loader" icon="spiral"></ion-spinner>
+		
+		<div class="row no-padding">
+			<div class="col no-padding">
+				<div class="list menu-list">
+
+					<a class="item item-avatar item-menu-food" ng-click="" ng-repeat="item in cart">
+						<img src="https://cp.edem-edim.ru/public/image/{{item.image}}">
+						<div class="time-block">{{item.cook_time}} мин</div>
+						<h2>{{item.title}}</h2>
+						<p>{{item.cart_count}} шт Х {{item.price}} руб.</p>
+						<span class="menu-price">{{item.cart_count*item.price}} Р</span>
+
+						<div class="button-block">
+							<button class="button button-green" ng-click="counterM(item,item.cart_count)">-</button>
+							<button class="button button-green" ng-click="counterP(item,item.cart_count)">+</button>
+						</div>
+					</a>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row rest-block-price">
+			<div class="col">
+				<h2>Выдача</h2>
+				<div class="list">
+					<div class="item item-avatar">
+						<img src="{{rest_img}}">
+						<h2>{{rest_title}}</h2>
+						<p>{{rest_adress}}</p>
+						<div class="time-order-confirm">
+							<p>{{food_delivery_time}}<span ng-if="isMoreTimeElepse">*</span></p>
+							время<br>выдачи
+						</div>
+					</div>
+				</div>
+				<div ng-if="isMoreTimeElepse" class="note-confirm">
+							<hr>
+							*Время приготовления блюд дольше времени Вашего прибытия. Парковка у заведения невозможна/ограничена/доступна. Ожидайте заранее.
+				</div>
+			</div>
+		</div>
+		<div class="row promo-block-price">
+			<div class="col">
+				<h2>Введите промо-код<br>или номер бонусной карты</h2>
+				<div class="list">
+					<div class="item item-input-inset">
+						<label class="item-input-wrapper">
+							<input type="text" placeholder="Введите код" ng-model="saleCode">
+						</label>
+						<button class="button button-small green-button" analytics-event="Введен промокод" analytics-category="Кнопки"  ng-click="checkSale(saleCode)" ng-disabled="!saleBtnActiv">
+				    		ок
+				    	</button>
+				 	</div>
+				</div>
+			</div>
+		</div>
+		<div class="row order-price">
+			<div class="col">
+				<div class="order-price-info">
+					<p ng-if="isDiscount">Сумма заказа: <span>{{totalPrice}} р</span></p>
+					<p ng-if="isDiscount">Сумма скидки 10%: <span>100 р</span></p>
+					<h3>Итого к оплате</h3>
+					<h2>{{totalPrice}} р</h2>
+				</div>
+				<div class="buttons-reg">
+					<button analytics-event="Оплата с карты" analytics-category="Кнопки" ng-click="buyDinner()" class="button button-full green-button">
+						оплатить заказ
+					</button>
+				</div>
+				<div  class="buttons-reg">
+					<button analytics-event="Отмена заказа с карты" analytics-category="Кнопки" ng-click="confirmClose()" ng- class="button button-full grey-button">
+						отмена
+					</button>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

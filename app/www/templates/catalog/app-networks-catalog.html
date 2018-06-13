@@ -1,0 +1,30 @@
+<ion-view view-title="Каталог еды">
+	<ion-content>
+		<ion-spinner class="edim-spiner" ng-show="show.loader" icon="spiral"></ion-spinner>
+		<div class="row no-padding catalog-items">
+			<div class="col no-padding" >
+			
+			<div class="list" >
+				<div ng-repeat="item in networks">
+					<div class="item item-divider item-divider-green">
+					    <h2>{{netType[$index].title}}</h2>
+					  </div>
+
+					  <a class="item" href="#/app/catalog/{{el.id}}" ng-repeat="el in item">
+					    <h3>{{el.title}}</h3>
+					  </a>
+				</div>
+				  
+
+			</div>
+
+			 
+			 
+				 
+	
+			</div>
+		</div>
+	</ion-content>
+ 
+
+</ion-view>

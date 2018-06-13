@@ -1,0 +1,50 @@
+<ion-view view-title="" hide-nav-bar="false">
+	<ion-nav-bar class="bar-stable menu-top-bar white-menu">
+		<ion-nav-buttons side="left">
+			<a class="button button-icon button-clear button-menu" menu-toggle="left">
+				<img src="img/map-menu.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Мои заказы</h1>
+			</div>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content class="orders-list">
+		<ion-refresher pulling-text="Обновить список..." on-refresh="doRefresh()">
+		</ion-refresher>
+		<ion-spinner class="edim-spiner" ng-show="show.loader" icon="spiral"></ion-spinner>
+		<div class="row no-padding">
+			<div class="col no-padding">
+
+				<div class="block-null" ng-if="ordersList.length == 0">
+						У вас нет заказов
+				</div>
+
+				<div class="list" ng-repeat="item in ordersList  | orderBy:'-'">
+
+					<a ng-class="statusClass(item.status)" class="item item-order-page " href="#/app/orderinfo/{{item.id}}">
+						<div class="row item-order-page-top">
+							<div class="col">
+								<h2>Заказ #<span>{{item.id}}</span></h2>
+								<p>{{item.count_price}} товара</p>
+							</div>
+						</div>
+						<div class="row item-order-page-bot">
+							<div class="col col-60">
+								<p>{{item.price}} Р</p>
+							</div>
+							<div class="col order-status">
+								<div ng-if="item.status == 0" >не оплачен</div>
+								<div ng-if="item.status == 1" >подготовка</div>
+								<div ng-if="item.status == 2" >ожидает вас</div>
+								<div ng-if="item.status == 3" >исполнен</div>
+								<div ng-if="item.status == 4" >отменен</div>
+							</div>
+						</div>
+					</a>
+					
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-modal-view view-title="Login">
+  <ion-content class="padding">
+     <div class="row">
+      <div class="col">
+        <div class="text-input-number">
+          <p>На ваш номер телефона выслан пин-код, введите его пожалуйста:</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form  >
+          <div class="list list-inset list-singup-forms">
+            <label class="item item-input">
+              <input ng-model="pass" type="tel" placeholder="Введите пин-код">
+            </label>
+          </div>
+          <p class="send-code"><a href="#">Выслать повторно</a></p>
+          <div class="buttons-reg">
+            <button ng-click="checkPass(pass)" class="button button-full green-button">
+              ПОДТВЕРДИТЬ
+            </button>
+          </div>
+          <div ng-click="closeLogin()" class="buttons-reg">
+            <button ng- class="button button-full grey-button">
+              ОТМЕНА
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

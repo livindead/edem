@@ -1,0 +1,70 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "XWALK_VERSION": "23+",
+            "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+            "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+            "XWALK_MODE": "embedded",
+            "XWALK_MULTIPLEAPK": "true",
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-mauron85-background-geolocation": {
+            "ICON": "@mipmap/icon",
+            "SMALL_ICON": "@mipmap/icon",
+            "ACCOUNT_NAME": "@string/app_name",
+            "ACCOUNT_LABEL": "@string/app_name",
+            "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
+            "CONTENT_AUTHORITY": "$PACKAGE_NAME",
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-android-support-gradle-release": {
+            "ANDROID_SUPPORT_VERSION": "27.+",
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.interkot.edemedim"
+        }
+    }
+}

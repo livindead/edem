@@ -1,0 +1,42 @@
+<ion-modal-view view-title="" class="map-modal-rate">
+	<ion-content class="map-rate-order">
+		<div class="row rate-order-title">
+			<div class="col">
+				<h3>Ваш заказ доставлен!</h3>
+				<p>Номер заказа: 123</p>
+			</div>
+		</div>
+		<div class="white-rate-block-container">
+			<div class="white-rate-block">
+				<img ng-if="raiting.stuard_avatar==''" src="img/map-point-no-photo.png">
+				<img ng-if="raiting.stuard_avatar!='' " ng-src="http://edem-edim.ru/server/public/image/{{raiting.stuard_avatar}}">
+				<div class="row rate-order-point">
+					<div class="col">
+						<h2>Шоколадница</h2>
+						<p>Петровско-разумовская, 16, стр. 1</p>
+					</div>
+				</div>
+				<div class="row rate-order-stars">
+					<div class="col">
+						<p>Поставьте оценку:</p>
+						<rating-stars ng-init="rating.count = 0" ng-model="rating.count" max="5"></rating-stars>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="list list-inset">
+							<!--
+							<label class="item item-input">
+								<input ng-modl="rating.text" type="text" placeholder="Комментарий">
+							</label>
+							-->
+							<button class="button button-full button-green-lite" ng-click="alertInfo()">не получили заказ?</button>
+							<button ng-click="sendRaiting(raiting.id,rating.count,rating.text)" class="button button-full button-green">
+								ОТПРАВИТЬ ОЦЕНКУ
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</ion-content>
+</ion-modal-view>

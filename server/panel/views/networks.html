@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-green">
+                            <h2>
+                                СЕТИ
+                                <small>Список добавленных сетей</small>
+                            </h2>
+                            <ul class="header-dropdown">
+                                <li class="dropdown">
+                                    <button type="button" class="btn btn-default btn-block btn-lg waves-effect">
+                                        <i class="material-icons">add</i>
+                                        <span>ДОБАВИТЬ СЕТЬ</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body table-responsive"  ng-init="editLine=true;lockLine=false;">
+                            <h4>Поиск по сетям:</h4>
+                            <div class="row clearfix search-table">
+                                <div class="col-md-4">
+                                    <input type="search" ng-init="search.$ = '' " ng-model="search.$" name="restSearch" class="form-control" placeholder="Найти сеть..">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-block bg-green waves-effect">
+                                        <i class="material-icons">search</i>
+                                        <span>НАЙТИ</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <table class="table table-hover table-networks">
+                                <thead>
+                                    <tr>
+                                        <th>Логотип</th>
+                                        <th>Название</th>
+                                        <th>Кол-во ресторанов</th>
+                                        <th>Контакты</th>
+                                        <th class="align-center button-col">Изменить</th>
+                                        <th class="align-center button-col">Просмотреть</th>
+                                        <th class="align-center button-col">Блокировать</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <div class="content-loader" ng-if="loader">
+                                        <div class="preloader">
+                                            <div class="spinner-layer pl-red">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>Загрузка данных...</p>
+                                    </div>
+
+                                    <tr ng-repeat="item in networks | filter:search:strict | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"  >
+                                        <td>
+                                            <img ng-if="item.logo != '' " src="../public/images/{{item.logo}}" alt="">
+                                            <img ng-if="item.logo == '' " src="images/logo-rest.png" ng-show="editLine">
+                                            <div class="img-upload" ng-show="!editLine">
+                                                <label>
+                                                    <input type="file" ng-model="logo"  ngf-select="uploadLogo($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="3MB" ng-init="logo = item.logo " type="file" class="form-control" />
+                                                    <span>Выбрать фото</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label for="mainRestName" ng-show="editLine">{{item.title}}</label>
+                                            <input type="text" name="mainRestName" class="form-control" id="mainRestName" ng-init="title = item.title" ng-model="title" ng-show="!editLine" value="{{item.title}}">
+                                        </td>
+                                        <td>{{item.point_count}}</td>
+                                        <td>
+                                        <label for="mainRestContact" ng-show="editLine"> {{item.contact}}</label>
+                                            <input type="text" name="mainRestContact" class="form-control" id="mainRestContact" ng-init="contact = item.contact" ng-model="contact" ng-show="!editLine" value="+7 495 123456 ag@edem-edim.ru">
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-amber btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=false" ng-show="editLine" title="Редактировать">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="editNetwork(item.id,logo,title,contact); editLine=true;" ng-show="!editLine" title="Сохранить изменения">
+                                                <i class="material-icons">save</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-orange btn-circle-lg waves-effect waves-circle waves-float" href="#!/restaurant/{{item.id}}" title="Просмотреть подробную информацию">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="changeLockStatus(item.id,item.is_allow)" ng-show="item.is_allow == 0" title="Блокировать">
+                                                <i class="material-icons">lock_open</i>
+                                            </a>
+
+                                            <a type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float" ng-click="changeLockStatus(item.id,item.is_allow)" ng-show="item.is_allow == 1" title="Разблокировать">
+                                                <i class="material-icons">lock</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <div class="img-upload" ng-if="!image_loader">
+                                                <label >
+                                                    <input type="file" ng-model="picFile"  ngf-select="uploadLogo($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="3MB" class="form-control" />
+                                                    <span>Выбрать фото</span>                                                    
+                                                </label>
+                                            </div>
+                                             <div class="preloader pl-size-xs" ng-if="image_loader" >
+                                                        <div class="spinner-layer pl-red-grey">
+                                                            <div class="circle-clipper left">
+                                                                <div class="circle"></div>
+                                                            </div>
+                                                            <div class="circle-clipper right">
+                                                                <div class="circle"></div>
+                                                            </div>
+                                                        </div>
+                                                </div> 
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="title" class="form-control" placeholder="Введите название" />
+                                        </td>
+                                        <td>0</td>
+                                        <td>
+                                            <input type="text" ng-model="contact" class="form-control" placeholder="Контакты" />
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <button type="button" ng-disabled="image_loader" ng-click="addNetwork(title,contact)" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float" title="Сохранить и добавить">
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="waves-effect" ng-class="{'disabled':currentPage == 0}" ng-click="setPrevPage()" >
+                                        <a href="">
+                                            <i class="material-icons">chevron_left</i>
+                                        </a>
+                                    </li>
+                                    <li ng-repeat="item in arrOfPages" ng-class="{'active': item.id == currentPage}" ng-click="setPageByNum(item.id)" class="waves-effect"><a href="" >{{item.id}}</a></li>
+                                    
+                                    <li ng-class="{'disabled':currentPage+1 > numberOfPages() -1  }" ng-click="setNexPage()" >
+                                        <a href="" class="waves-effect" class="waves-effect">
+                                            <i class="material-icons">chevron_right</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+
+                             
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>

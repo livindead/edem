@@ -1,0 +1,86 @@
+<ion-modal-view view-title="Построить маршрут">
+	<ion-spinner class="edim-spiner" ng-show="show2.loader" icon="spiral"></ion-spinner>
+	<ion-header-bar class="bar-stable menu-top-bar white-menu">
+		<ion-header-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="closeRoute()">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Построить маршрут</h1>
+			</div>
+		</ion-header-buttons>
+	</ion-header-bar>
+	<ion-content class="route has-header">
+		<div class="row route-search-row">
+			<div class="col">
+				<span>Куда:</span>
+				<input type="text" ng-model="point.a" ng-change="enableSuggest(point.a)" class="round-input">
+				<div class="route-b">B</div>
+				<a ng-if="point.a =='' || point.a == null " ng-click="setPointOnMap()" class="button button-green button-route">на карте</a>
+				<a ng-if="point.a !=='' " ng-click="userRouteClear();  point.a ='';  " class="button button-green button-route">очистить</a>
+
+				<!--Выпадающий список с улицами-->
+				<div class="list list-inset street-list-result">
+					<div  ng-click="point.a = results.displayName;streetResult.result=''; " class="item" ng-repeat="results in streetResult.result">
+						{{results.displayName}}
+					</div>
+				</div>
+			</div>
+		</div>
+ 
+
+
+		<div class="route-menu-tabs" ng-model="routetab">
+			<div class="row">
+				<div class="col">
+					<div class="button-bar">
+						<a class="button button-light" ng-class="{'active-tab':!routetab}" ng-click="routetab = !routetab"><div>Мои места</div></a>
+						<a class="button button-light" ng-class="{'active-tab':routetab}" ng-click="routetab = !routetab"><div>История</div></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row route-list list-mine" ng-show="!routetab">
+			<div class="col">
+				<div class="list my-routes-list">
+					<div class="item item-avatar">
+						<img src="img/icon-home.png" ng-click="point.a =myPoints[0].val">
+						<h2 ng-click="point.a =myPoints[0].val">Домой</h2>
+						<p class="address-set" ng-click="point.a =myPoints[0].val" >{{myPoints[0].val}}</p>
+
+
+						<a class="button button-grey" ng-click="setMyPoint(0,point.a)" ng-show="!checkMyPoint(0)">добавить</a>
+						<a class="button button-grey" ng-click="setMyPoint(0,point.a)" ng-show="checkMyPoint(0)">изменить</a>
+					</div>
+					<div class="item item-avatar no-address">
+						<img src="img/icon-work.png" ng-click="point.a =myPoints[1].val">
+						<h2 ng-click="point.a =myPoints[1].val">До работы</h2>
+						<p class="address-set" ng-click="point.a =myPoints[1].val">{{myPoints[1].val}}</p>
+						<a class="button button-grey" ng-click="setMyPoint(1,point.a)" ng-show="!checkMyPoint(1)">добавить</a>
+						<a class="button button-grey" ng-click="setMyPoint(1,point.a)" ng-show="checkMyPoint(1)">изменить</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row route-list list-history" ng-show="routetab">
+			<div class="col">
+
+				<div class="block-null" ng-if="MyPointHistory.length == 0">
+					Нет маршрутов
+				</div>
+				<div class="list my-routes-list">
+					<a class="item item-avatar" ng-repeat="item in MyPointHistory |  orderBy:'id':true " ng-click="point.a = item.val">
+						<img src="img/icon-map.png">
+						<h2>{{item.val}}</h2>
+						<p class="address-set" ng-show="true">{{item.val}}</p>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row route-button-row">
+			<div class="col">
+				<button ng-click="userRouteGet(point.a)" class="button button-green button-rect">построить</button>
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

@@ -1,0 +1,58 @@
+<ion-modal-view view-title="">
+	<ion-header-bar class="bar-stable menu-top-bar white-menu shadow-menu">
+		<ion-header-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="cancelRest()">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title-rest list">
+				<div class="item item-avatar">
+					<img src="{{rest_img}}">
+					<h2>{{rest_title}}</h2>
+					<p>{{rest_adress}} </p>
+					<button class="button button-clear like-rest" ng-click="setLike(rest_id)" ng-class="{'green-like':checkFavorite(rest_id)}"></button>
+				</div>
+			</div>
+		</ion-header-buttons>
+	</ion-header-bar>
+	<ion-content class="catalog-menu has-header">
+		<ion-spinner class="edim-spiner" ng-show="show.loader" icon="spiral"></ion-spinner>
+		<div ng-show="categorys.length == 0" class="card">
+					  <div class="item item-text-wrap">
+					    Вся еда закончилась. Но скоро привезут еще !
+					  </div>
+		</div>
+		<div class="row no-padding">
+			<div class="col no-padding">
+				<div class="list menu-list">
+					<a class="item item-avatar" ng-click="setCatMenu(item.arr,item.title,menu_dinners_status)" ng-repeat="item in categorys">
+						<img ng-if="item.icon == '' || item.icon == 'undefined' || item.icon == ' '" src="img/icon-gift.png">
+						<img ng-if="item.icon != '' && item.icon != 'undefined' && item.icon != ' ' " src="https://cp.edem-edim.ru/public/image/{{item.icon}}" alt="">
+						<div class="border-block">
+							{{item.title}}
+							<span class="item-note">{{item.arr.length}}</span>
+						</div>
+					</a>
+					
+				</div>
+			</div>
+		</div>
+	</ion-content>
+	<div class="row my-order-panel" ng-if="cartShow">
+		<div class="col col-20 order-panel-time no-padding">
+			<p>Время выдачи:</p>
+			<span>{{food_delivery_time}}</span>
+		</div>
+		<div class="col col-50 order-panel-sum">
+			<img src="img/icon-cart.png">
+			Общая сумма:<br>
+			<span>{{totalPrice}} Р</span>
+			<img src="img/arrow2.png">
+		</div>
+		<div class="col order-panel-btn">
+			<a class="button-order" ng-click="confirmOpen()">
+				сделать
+				<span>заказ</span>
+			</a>
+		</div>
+	</div>
+</ion-modal-view>

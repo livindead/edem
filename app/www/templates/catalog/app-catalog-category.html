@@ -1,0 +1,205 @@
+<ion-modal-view view-title="Поиск по категориям">
+	<ion-header-bar class="bar-stable menu-top-bar white-menu">
+		<ion-header-buttons side="left">
+			<button class="button button-icon button-clear button-back-arrow" ng-click="categoryClose()">
+				<img src="img/back-arrow.png">
+			</button>
+			<div class="search-header">
+				<div class="search-header-input">
+					<input ng-model="searchResult" ng-keyup="search(searchResult)" type="text" name="category-search" placeholder="Найти ресторан" class="round-input">
+					<div class="search-num num-active">
+						<span ng-if="searchStuard.length < 1000">{{searchStuard.length}}</span>
+						<span ng-if="searchStuard.length > 999">999+</span>
+					</div>
+				</div>
+				<button class="button button-clear button-green input-button">
+					<img src="img/cat-ico-search-green.png">
+				</button>
+			</div>
+		</ion-header-buttons>
+	</ion-header-bar>
+	<ion-content class="catalog-categorys">
+		 
+		<!--Поиск по категориям-->
+		<div id="categorys-select" ng-hide="show.searchHide">
+			<div class="category-menu-tabs" ng-model="cat" ng-init="cat = {Tab1:false,Tab2:false,Tab3:false}">
+				<div class="row">
+					<div class="col no-padding">
+						<div class="button-bar">
+							<a class="button button-light" ng-class="{'active-tab':!cat.Tab1}" ng-click="cat.Tab1=false;cat.Tab2=false;cat.Tab3=false">
+								<div>Категории</div>
+							</a>
+							<a class="button button-light" ng-class="{'active-tab':cat.Tab2}" ng-click="cat.Tab1=true;cat.Tab2=true;cat.Tab3=false">
+								<div>Любимые</div>
+							</a>
+							<a class="button button-light" ng-class="{'active-tab':cat.Tab3}" ng-click="cat.Tab1=true;cat.Tab2=false;cat.Tab3=true">
+								<div>Недавно</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="category-menu-block" ng-hide="cat.Tab1">
+				<div class="border-category-block">
+					<div class="row">
+						<div class="col col-33">
+							<button ng-click="setTag(networks[7],'Суши')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-1-grey.png">
+								<p>Суши</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[8],'Гамбургеры')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-2-grey.png">
+								<p>Гамбургеры</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[9],'Вок')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-3-grey.png">
+								<p>Вок</p>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-33">
+							<button ng-click="setTag(networks[3],'Горячие')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-4-grey.png">
+								<p>Горячие<br>блюда</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[2],'Супы')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-5-grey.png">
+								<p>Супы</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[10], 'Нац Кухня')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-6-grey.png">
+								<p>Националь<wbr>ная <wbr>кухня</p>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-33">
+							<button ng-click="setTag(networks[1],'Салаты')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-7-grey.png">
+								<p>Салаты</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[0], 'Десерты')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-8-grey.png">
+								<p>Десерты</p>
+							</button>
+						</div>
+						<div class="col col-33">
+							<button ng-click="setTag(networks[11],'Вегетарианское')" analytics-event="Выбор тега еды" analytics-category="Кнопки" class="button">
+								<img src="img/eda-9-grey.png">
+								<p>Вегетарианс<wbr>кое <wbr>меню</p>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="cat.Tab2" class="favorite-category-block">
+				<div class="border-category-block">
+					<div class="row">
+						<div class="col">
+							<div class="list list-search-results">
+								<div ng-if="checkFavorCount() == 0" class="block-null">
+									Нет избранных маршрутов
+								</div>
+
+								<!--Пункты списка вывода поиска ресторанов-->
+								<a analytics-event="Выбор из избранного" analytics-category="Кнопки" class="item item-search-results" ng-click="setRest(item.point_id,item.point_title,item.adress,item.point_img)" href="" ng-if="checkFavorite(item.id)" ng-repeat="item in stuards">
+									<div class="row">
+										<div class="col col-20">
+											<img class="ico-search-result" src="img/logo-rest.png" ng-src="{{item.point_img}}">
+										</div>
+										<div class="col col-80 search-resalt-text">
+											<h2>{{item.point_title}}</h2>
+											<p>{{item.adress}}</p>
+											<div class="rate-rest">
+												<img src="img/star-light.png"> <span>7,1</span>
+											</div>
+											<button class="button button-clear like-rest" ng-click="setLike(item.id)" ng-class="{'green-like':checkFavorite(item.id)}"></button>
+										</div>
+									</div>
+								</a>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="cat.Tab3" class="letter-category-block">
+				<div class="border-category-block">
+					<div class="row">
+						<div class="col">
+							<div class="list list-search-results">
+
+								<div ng-if="stuards.length == 0" class="block-null">
+									Нет недавних маршрутов
+								</div>
+								<a class="item item-search-results" href="" ng-if="checkFavorite(item.id)" ng-repeat="item in stuards">
+									<div class="row">
+										<div class="col col-20">
+											<img class="ico-search-result" src="img/logo-rest.png" ng-src="{{item.point_img}}">
+										</div>
+										<div class="col col-80 search-resalt-text">
+											<h2>{{item.point_title}}</h2>
+											<p>{{item.adress}}</p>
+											<div class="rate-rest">
+												<img src="img/star-light.png"> <span>7,1</span>
+											</div>
+											<button class="button button-clear like-rest" ng-click="setLike(item.id)" ng-class="{'green-like':checkFavorite(item.id)}"></button>
+										</div>
+									</div>
+								</a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Поиск со списком результатов-->
+		<div id="categorys-search" ng-hide="!show.searchHide">
+			<div  ng-init="show.searcResult = false" class="search-results">
+				<div class="row no-padding">
+					<div class="col no-padding">
+						<div class="list list-search-results">
+							<div ng-if="searchStuard.length == 0" class="block-null">
+									Не найдено ...
+							</div>
+
+							<!--Пункты списка вывода поиска ресторанов-->
+							<a class="item item-search-results" href="" ng-repeat="item in searchStuard">
+								<div class="row no-padding">
+									<div class="col col-20 no-padding">
+										<img class="ico-search-result" src="img/logo-rest.png" ng-src="{{item.point_img}}">
+									</div>
+									<div class="col col-50 search-resalt-text">
+										<h2>{{item.point_title}}</h2>
+										<p>{{item.adress}}</p>
+										<div class="rate-rest">
+											<img src="img/star-light.png"> <span>7,1</span>
+										</div>
+									</div>
+									<div class="col col-25">
+										<button class="button button-clear like-rest" analytics-event="Лайк из поиска" analytics-category="Кнопки" ng-click="setLike(item.id)" ng-class="{'green-like':checkFavorite(item.id)}"></button>
+										<button class="button button-green set-order" analytics-event="Заказ из поиска" analytics-category="Кнопки" ng-click="setRest(item.id,item.network_id,item.point_title,item.adress,item.point_img,item.menu_dinners_status)">заказать</button>
+									</div>
+								</div>
+							</a>
+							 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

@@ -1,0 +1,62 @@
+<ion-modal-view view-title="">
+	<ion-header-bar class="bar-stable menu-top-bar white-menu shadow-menu">
+		<ion-header-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="cancelCatMenu()">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title-rest menu-food list">
+				<div class="item item-avatar">
+					<img src="{{rest_img}}">
+					<h2>{{cat_title}}</h2>
+				</div>
+			</div>
+		</ion-header-buttons>
+	</ion-header-bar>
+	<ion-content class="category-menu has-header">
+		<div class="row no-padding">
+			<div class="col no-padding">
+				<div class="list menu-list">
+
+					<a class="item item-avatar item-menu-food" ng-click="" ng-repeat="item in dinners" ng-class="{'grey-noactive':!item.activ}">
+						<img src="https://cp.edem-edim.ru/public/image/{{item.image}}">
+						<img class="star-food active" src="img/star-food.png" ng-hide="true">
+						<div class="time-block">{{item.cook_time}} мин</div>
+						<h2>{{item.title}}</h2>
+						<p>{{item.description}}</p>
+						<span class="menu-price-old" ng-hide="item.activ"></span>
+						<span class="menu-price">{{item.price}} Р</span>
+						<button class="button button-green" ng-click="addToCartByButtons(item);activ = true;">в корзину</button>
+
+						<button class="button button-dark-grey" ng-show="!item.activ">нет в наличии</button>
+
+						<div class="button-block" ng-hide="!activ">
+							<button class="button button-green" ng-click="activ = counterM(item,item.cart_count)">-</button>
+							<button class="button button-disable">{{item.cart_count}}</button>
+							<button class="button button-green" ng-click="counterP(item,item.cart_count)">+</button>
+						</div>
+					</a>
+					
+				</div>
+			</div>
+		</div>
+		
+	</ion-content>
+	<div class="row my-order-panel" ng-if="cartShow">
+		<div class="col col-20 order-panel-time no-padding">
+			<p>Время выдачи:</p>
+			<span>{{food_delivery_time}}</span>
+		</div>
+		<div class="col col-50 order-panel-sum">
+			<img src="img/icon-cart.png">
+			Общая сумма:<br>
+			<span>{{totalPrice}}  Р</span>
+			<img src="img/arrow2.png">
+		</div>
+		<div class="col order-panel-btn">
+			<a class="button-order" ng-click="confirmOpen()">
+				сделать
+				<span>заказ</span>
+			</a>
+		</div>
+	</div>
+</ion-modal-view>

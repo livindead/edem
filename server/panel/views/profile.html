@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class=" card profile-block">
+		<div class="header bg-green">
+			<h2>Профиль пользователя</h2>
+			<small>Просмотр и редактирование профиля</small>
+		</div>
+		<div class="body">
+			<div class="row clearfix">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<img src="images/logo2.png">
+				<button type="button" ng-click="logout()" class="btn btn-block bg-red waves-effect">
+                    <i class="material-icons">close</i>
+                    <span>ВЫЙТИ</span>
+                </button>
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<div class="img-upload" ng-if="false">
+		            <label>
+		                <input type="file" ng-disabled="true" class="form-control" />
+		                <span>Выбрать фото</span>
+		            </label>
+		        </div>
+		        <form>
+				    <input placeholder="Логин" name="login" type="login" class="form-control" ng-disabled="true" ng-model="user.login">
+
+				    <input placeholder="Новый Пароль" name="password" type="password" class="form-control" ng-model="pass"   >
+				    <input placeholder="Новый Пароль еще раз" name="password" type="password" class="form-control" ng-model="pass2"   >
+					<input type="submit" value="Обновить пароль" class="btn btn-lg btn-block bg-green waves-effect" ng-disabled="pass1 != pass2" ng-click="updatePass(pass1)">
+
+				    <h4>Основная информация</h4>
+				    <input placeholder="ФИО" name="fio" type="text" class="form-control" ng-model="user.fio">
+				    <input placeholder="Паспортные данные" name="passport" type="tel" class="form-control" ng-model="user.doc">
+				    <h4>Контактная информация</h4>
+				    <input placeholder="Телефон" name="phone" type="tel" class="form-control" ng-model="user.phone">
+				    <input placeholder="E-mail" name="email" type="email" class="form-control" ng-model="user.mail">
+				    <input type="submit" value="Сохранить изменения" class="btn btn-lg btn-block bg-green waves-effect">
+				</form>    
+			</div>
+		</div>
+		</div>
+		
+		
+		
+		
+	</div>
+</div>

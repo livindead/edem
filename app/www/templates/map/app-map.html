@@ -1,0 +1,383 @@
+<ion-view view-title=""  >
+	<!--
+	<ion-nav-bar class="bar-stable menu-top-bar white-menu">
+		
+		<ion-nav-back-button class="button-clear ">
+			 <i class="ion-arrow-left-c"></i> Фильтр
+		</ion-nav-back-button>
+
+		<ion-nav-buttons side="left">
+			<div ng-show="show.searchHide" >
+				<button class="button button-icon button-clear button-open-menu" menu-toggle="left">
+					<img src="img/menu-ico.png">
+				</button>
+				<button ng-click="show.userRoute = false"  class="button button-clear button-positive button-back-point">
+					<img src="img/map-ico-route-grey.png"> 
+				</button>
+				<button  ng-click="aroundMeStuards(10000)" class="button button-clear button-positive button-top-search">
+					<img src="img/map-ico-search-grey.png">
+				</button>
+			</div>
+			-->
+			<!--Меню проложить маршрут-->
+				<!--
+				<div ng-hide="show.userRoute" ng-init="show.userRoute = true" class="userroute-menu">
+					<div  ng-click="show.userRoute = true"  class="userroute-full"></div>
+
+					<div class="nav-set-buttons-bar">
+						<button class="button button-icon button-clear button-open-menu" menu-toggle="left">
+							<img src="img/menu-ico.png">
+						</button>
+						<button ng-click="show.userRoute = true"  class="button button-clear button-positive button-back-point">
+							<img src="img/map-ico-route-green.png">
+						</button>
+						<button ng-click="aroundMeStuards(10000)" class="button button-clear button-positive button-top-search">
+							<img src="img/map-ico-search-grey.png">
+						</button>
+					</div>
+					<div class="list list-inset list-input-nav-set">
+							<input  ng-class="{'yellow-select':!selected}" class="item item-input" ng-change="enableSuggest(route.a,0)" ng-focus="selected = false" type="text" ng-model="route.a" placeholder="Адрес или точка на карте">
+							<div class="point-set-a">A</div>
+							<div class="point-set-ico-a"><img src="img/map-location-grey.png"></div>
+							<input ng-class="{'yellow-select':selected}" class="item item-input" ng-change="enableSuggest(route.b,1)" ng-focus="selected = true" type="text" ng-model="route.b" placeholder="Адрес или точка на карте">
+							<div class="point-set-b">B</div>
+							<div class="point-set-ico-b"><img src="img/map-location-grey.png"></div>
+							<div class="list list-inset street-list-result">
+							    <div ng-if="streetResult.input == 0" ng-click="route.a = results.displayName;streetResult.result=''; " class="item" ng-repeat="results in streetResult.result">
+							      {{results.displayName}}
+							    </div>
+
+							    <div ng-if="streetResult.input == 1" ng-click="route.b = results.displayName;streetResult.result='';" class="item" ng-repeat="results in streetResult.result">
+							      {{results.displayName}}
+							    </div>
+							</div>
+							<div class="nav-set-bottom-but">
+								<button ng-click="userRouteGet(route)" class="button button-clear button-set">
+									<span>ПРИМЕНИТЬ</span>
+								</button>
+								<button ng-click="userRouteClear()"  class="button button-clear button-clear">
+									<span>СБРОС</span>
+								</button>
+							</div>
+					</div>
+				</div>
+	 			-->
+				
+			<!--Поиск-->
+			<!--
+			<div ng-hide="show.searchHide">
+				<img class="search-green-ico" src="img/map-ico-search-green.png">
+				<div class="list search-input-form">
+					<label class="item item-input">
+						<input ng-model="searchResult" ng-keyup="search(searchResult,show.searchHide)" type="text" placeholder="Поиск стюарда">
+					</label>
+				</div>
+			</div>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	-->
+	<!--Зеленое подменю-->
+	<!--
+	<div class="bar bar-subheader bar-edit-point" ng-init="show.searchHideRoute = true" ng-hide="show.searchHideRoute">
+		<button ng-click="show.userRoute = false" class="button button-clear button-edit-point">
+			<img src="img/map-ico-edit.png"> <span>РЕДАКТИРОВАТЬ</span>
+		</button>
+		<button ng-click="userRouteClear()" class="button button-clear button-clear-point">
+			<span>СБРОС</span>
+		</button>
+	</div>
+	-->
+	<!--Главная подменю-->
+	<ion-content class="bg-map" scroll="false">
+
+		<div class="helper-block" ng-if="isHelper" ng-class="{'active-helper':isHelper}" ng-click="isHelper = false"></div>
+
+		<ion-spinner class="edim-spiner" ng-show="show2.loader" icon="spiral"></ion-spinner>
+		
+		<div class="row no-padding">
+			<div class="col no-padding">
+				
+				<ya-map  ya-zoom="11"  ya-center="{{userPosition}}" ya-after-init="afterInit($target)" ya-before-init="beforeInit()"  ya-event-boundschange="mapBoundschange($event)" ya-controls="">
+				    <ya-collection ya-after-init="afterInitCollection($target)">	 
+						<ya-geo-object ng-repeat="stuard in onMap" ya-source="stuard">
+						</ya-geo-object>
+					</ya-collection>
+
+					<ya-geo-object ya-options="{
+						iconLayout: 'default#image',
+						iconImageHref: 'img/map-location.png',
+						iconImageSize: [64, 64]}" ng-repeat="o in geoObjects" ya-source="o">
+					</ya-geo-object>
+				</ya-map>
+			</div>
+		</div>
+
+		
+
+		<!--Кнопки масштабы карты-->
+		<div ng-click="zoomIn()" analytics-on="click" analytics-event="Масштаб увеличить" analytics-category="Кнопки" class="round-fav-button button-plus">
+			<button class="button button-clear">
+				<img src="img/map-plus.png">
+			</button>
+		</div>
+		<div ng-click="zoomOut()" analytics-event="Масштаб уменьшить" analytics-category="Кнопки" class="round-fav-button button-minus">
+			<button class="button button-clear">
+				<img src="img/map-minus.png">
+			</button>
+		</div>
+
+		<!--Круглая кнопка навигации в правом углу-->
+		<div ng-class="{'pos-before-info':showPanelInfo}" ng-click="getMyLocation()" analytics-event="Навигация" analytics-category="Кнопки" class="round-fav-button button-location">
+			<button class="button button-clear">
+				<img src="img/map-back-to-point.png">
+			</button>
+		</div>
+
+		<!--Кнопка ПРИНЯТЬ при выборе маршрута на карте-->
+		<button class="button button-green button-rect button-set-route" ng-click="selectPointOnMap()" ng-show="show.selectPointOnMap">принять</button>
+
+		<!--Окно с выбранным рестораном-->
+		<div class="selected-rest" ng-if="showPanelInfo">
+			<div class="row">
+				<div class="col">
+					<div class="list">
+						<div class="item item-avatar search-resalt-text">
+							<img src="{{panel_avatar}}">
+							<h2>{{panel_name}}</h2>
+							<p>{{panel_adress}}</p>
+							<div class="rate-rest">
+								<img src="img/star-light.png"> <span>7,1</span>
+							</div>
+							<div class="row no-padding">
+								<div class="col col-50 no-padding">
+									<a class="button button-green" ng-click="setRest(panel_pointId,panel_networkId,panel_name,panel_adress,panel_avatar,menu_dinners_status)">заказать</a>
+								</div>
+								<div class="col col-50 no-padding">
+									<a ng-click="closePanelInfo()" class="button button-grey">назад</a>
+								
+								</div>
+							</div>
+							<button class="button button-clear like-rest" ng-click="setLike(panel_stuardId)" ng-class="{'green-like':checkFavorite(panel_stuardId)}"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Окно со списком точек снизу-->
+		<div class="map-points" on-swipe-up="isSwipe=true;" ng-class="{'active':isSwipe}" on-swipe-down="isSwipe=false;" ng-show="!showPanelInfo">
+			
+			<div class="white-menu" ng-show="isSwipe">
+				<a class="button button-icon button-clear button-back-arrow back-arrow-rest" ng-click="isSwipe=false;">
+					<img src="img/back-arrow.png">
+				</a>
+				<div class="title title-center header-item">
+					<h1>Рестораны по пути</h1>
+				</div>
+				<div class="map-points-num">
+							<span ng-if="stuards.length < 1000">{{(stuards| filter:{is_del:'0'}).length}}</span>
+							<span ng-if="stuards.length > 999">999+</span>
+
+				</div>
+				<a class="button button-icon button-clear button-right-search" analytics-event="Выбор ретсорана с карты" analytics-category="Кнопки" ng-click="categoryOpen()">
+					<img src="img/map-ico-search-green.png">
+				</a>
+			</div>
+
+			<div ng-show="!isSwipe" >
+				<button class="button button-icon button-clear button-search-ico" menu-toggle="left">
+					<img src="img/map-ico-search-green.png">
+				</button>
+				<div class="search-header">
+					
+
+					<div class="search-header-input" ng-class="{'filter-true':isFoodFilter.state}" ng-click="categoryOpen()">
+						<input ng-model="searchResult" ng-keyup="search(searchResult,show.searchHide)" type="text" name="category-search" placeholder="Найти ресторан" class="round-input">
+						<div class="search-num num-active">
+							<span ng-if="stuards.length < 1000">{{(stuards| filter:{is_del:'0'}).length}}</span>
+							<span ng-if="stuards.length > 999">999+</span>
+						</div>
+					</div>
+					<a ng-click="clearTag()" ng-if="isFoodFilter.state" class="button button-grey filter-map-btn">
+						<p>{{isFoodFilter.name}}</p>
+						<img src="img/close-white.png" >
+					</a>
+				</div>
+			</div>
+
+			<div class="row filter-results">
+				<div class="col">
+					<div class="list list-search-results">
+						<div class="block-null" ng-if="(stuards| filter:{is_del:'0'}).length == 0">
+							Нет точек по пути
+						</div>
+
+						<!--Пункты списка вывода поиска ресторанов-->
+						<a class="item item-search-results" href="" ng-repeat="item in stuards | filter:{is_del:'0'} ">
+							<div class="row no-padding">
+								<div class="col col-20 no-padding">
+									<img class="ico-search-result" src="img/logo-rest.png" ng-src="{{item.point_img}}">
+								</div>
+								<div class="col col-50 search-resalt-text">
+									<h2>{{item.point_title}}</h2>
+									<p>{{item.adress}}</p>
+									<div class="rate-rest">
+										<img src="img/star-light.png"> <span>7,1</span>
+									</div>
+								</div>
+								<div class="col">
+									<button class="button button-clear like-rest" analytics-event="Лайк с карты" analytics-category="Кнопки" ng-click="setLike(item.id)" ng-class="{'green-like':checkFavorite(item.id)}"></button>
+									<button class="button button-green set-order" analytics-event="Заказ с карты" analytics-category="Кнопки" ng-click="setRest(item.id,item.network_id,item.point_title,item.adress,item.point_img,item.menu_dinners_status)">заказать</button>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+<!--
+		 <ya-template-layout  ya-key="showUserInfo">
+    				<div class="stuard-point">
+						<div class="stuard-point-ico">
+							<img src="img/map-point-photo.png">
+						</div>
+						<div class="stuard-point-block">
+							<div class="about-stuard">
+									
+								<h2>Василий </h2>
+								<p>Красноармейская улица, 4, напротив банка </p>
+							</div>
+							<button class="button button-clear about-stuard-more">
+								<img src="img/arrow-right.png">
+							</button>
+						</div>
+					</div>
+		</ya-template-layout>
+		<ya-template-layout ya-key="polygonLayout">
+    		<div class="placemark_layout_container">
+    			<div class="polygon_layout">
+				</div>	
+
+    		</div>
+		</ya-template-layout>
+
+	-->	
+	</ion-content>
+	<!--Верхнее меню при выборе маршрута по карте-->
+		<div class="white-menu menu-select-route-map" ng-show="false">
+			<a class="button button-icon button-clear button-back-arrow" ng-click="isSwipe=false;">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Выбрать на карте</h1>
+			</div>
+		</div>
+
+		<!--Круглая кнопка меню-->
+		<div ng-class="" ng-click="" class="round-fav-button button-menu" menu-toggle="left">
+			<button class="button">
+				<img src="img/map-menu.png">
+			</button>
+		</div>
+
+		<!--Выбрать маршрут кнопка-->
+		<div ng-class="" ng-click="" class="black-map-button">
+			<a class="button button-clear button-map-route" ng-click="routeChoose()" ng-show="showUserRoutes">
+				<div>Куда едете?</div><img src="img/map-ico-route-white.png">
+			</a>
+
+			<div class="button-block route-choose-block" ng-show="!showUserRoutes">
+
+				<a ng-repeat="item in routesArray" class="button button-clear route-lenght " ng-click="selectRoute($index);" ng-class="{'active-lenght':isRouteTabSelect == $index }">
+
+					<h2>{{item.distance | limitTo : 2 }}<span>км</span></h2>
+					<p>{{item.time | limitTo : 2}} мин</p>
+				</a>
+				 
+				<a ng-click="userRouteClear()" analytics-event="Выбор маршрута ЯД" analytics-category="Кнопки" class="button button-clear route-lenght-close">
+					<img src="img/close-white2.png">
+				</a>
+			</div>
+		</div>
+		
+		<!--Круглая кнопка пробок в левом углу-->
+		<div ng-class="" ng-click="" class="round-fav-button button-traffic">
+			<button class="button button-clear" ng-model="trafClick" analytics-event="Трафик \ Пробки" analytics-category="Кнопки" ng-click="trafClick=!trafClick; trafClick? trafficOn() : trafficOff() ">
+				<img src="img/map-light-1.png" ng-hide="trafClick">
+				<img src="img/map-light-2.png" ng-show="trafClick" ng-click="trafficOff()">
+			</button>
+		</div>
+<!--
+	<div class="stuard-panel-point" ng-show="showPanelInfo">
+						
+						<div class="stuard-point-block"> 
+							<div class="stuard-point-ico"> 
+								<img class="circle-avatar" src="{{panel_avatar}}">
+							</div> 
+							<div class="about-stuard">
+								 <h2>{{panel_name}}</h2> <p> {{panel_adress}}</p> 
+							</div> 
+							<a href="#/app/catalogStuar/{{panel_stuardId}}" id="ballonHint" class="button button-clear about-stuard-more"> 
+							<img src="img/arrow-right.png"> </a> 
+					</div>
+	</div>
+	
+
+	<div class="bg-white-light" ng-hide="show.searchHide" ng-init="show.searchHide = true">
+		<div class="row">
+			<div class="col">
+				<div class="button-search-cancel-block">
+					<button ng-click="show.searchHide = true" class="button button-clear button-full button-search-cancel">
+						ОТМЕНА 
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-hide="show.searcResult" ng-init="show.searcResult = true" class="search-results">
+		<div class="row no-padding">
+			<div class="col no-padding">
+				<div class="list list-search-results">
+
+					<a ng-repeat="stuard in searchStuard" class="item item-thumbnail-left item-search-results item-icon-right ion-chevron-right" href="" ng-click="showOnMap(stuard.coordinates);show.searcResult = true;show.searchHide = true;">
+						<img class="ico-search-result" ng-src="{{stuard.point_img}}">
+						<div class="search-resalt-text">
+							<h2>{{stuard.point_title}}</h2>
+							<p>{{stuard.adress}}</p>
+						</div>
+					</a>
+					 
+				</div>
+			</div>
+		</div>
+		<div class="col buttons-search-list" ng-hide="true">
+			<div class="row">
+				<div class="col col-67">
+					<button ng-click="showStuardOnMap()" class="button button-clear button-full button-green">
+						ПОКАЗАТЬ НА КАРТЕ
+					</button>
+				</div>
+				<div class="col">
+					<button ng-click="show.searcResult = true;show.searchHide = true;" class="button button-clear button-full button-grey">
+						ОТМЕНА
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-hide="true" class="map-buttons">
+		<div class="row">
+			<div class="col">
+				<button class="button button-clear button-green">ПОКАЗАТЬ СПИСКОМ</button>
+				<button class="button button-clear button-green">ОТМЕНА</button>
+			</div>
+		</div>
+	</div>
+
+	-->
+</ion-view>

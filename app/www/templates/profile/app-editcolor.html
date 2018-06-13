@@ -1,0 +1,69 @@
+<ion-modal-view ng-model="color" class="green-page" view-title="Цвет авто">
+	<ion-content >
+		<div class="row">
+			<div class="col profile-color">
+				<div class="color-selected" ng-class="userdata.CarColor">
+				</div>
+				<p>Выбранный цвет машины</p>
+				<p class="car-color-name">{{userdata.name}}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<div class="profile-line"></div>
+			</div>
+		</div>
+		<div class="row padding select-color-row">
+			<div ng-click="userdata.name ='Белый'" class="col">
+				<a href="" ng-click="userdata.CarColor ='white-car'" class="select-color white-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Черный'" class="col">
+				<a href="" ng-click="userdata.CarColor ='black-car'" class="select-color black-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Красный'" class="col">
+				<a href="" ng-click="userdata.CarColor='red-car'" class="select-color red-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Оранживый'" class="col">
+				<a href="" ng-click="userdata.CarColor='orange-car'" class="select-color orange-car button"></a>
+			</div>
+		</div>
+		<div class="row padding select-color-row">
+			<div ng-click="userdata.name ='Желтый'" class="col">
+				<a href="" ng-click="userdata.CarColor='yellow-car'" class="select-color yellow-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Зеленый'" class="col">
+				<a href="" ng-click="userdata.CarColor='green-car'" class="select-color green-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Морской'" class="col">
+				<a href="" ng-click="userdata.CarColor='sea-car'"  class="select-color sea-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Синий'" class="col">
+				<a href="" ng-click="userdata.CarColor='lblue-car'" class="select-color lblue-car button"></a>
+			</div>
+		</div>
+		<div class="row padding select-color-row">
+			<div ng-click="userdata.name ='Голубой'" class="col">
+				<a href="" ng-click="userdata.CarColor='blue-car'"  class="select-color blue-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Пурпурный'" class="col">
+				<a href="" ng-click="userdata.CarColor='purpure-car'"  class="select-color purpure-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Розовый'" class="col">
+				<a href="" ng-click="userdata.CarColor='pink-car'" class="select-color pink-car button"></a>
+			</div>
+			<div ng-click="userdata.name ='Серый'" class="col">
+				<a href="" ng-click="userdata.CarColor='grey-car'"  class="select-color grey-car button"></a>
+			</div>
+		</div>
+	</ion-content> 
+	<div class="color-set-button row">
+		<div class="col">
+			<button ng-click="saveColor(userdata.CarColor)" class="button button-clear button-full button-green">CОХРАНИТЬ</button>
+		
+		</div>
+		<div class="col">
+			<button ng-click="closeColor()" class="button button-clear button-full button-grey-cancel">ОТМЕНА</button>
+		</div>
+	</div>
+</ion-modal-view>

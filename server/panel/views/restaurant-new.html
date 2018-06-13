@@ -1,0 +1,368 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card rest-new-card">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 rest-logo">
+                            <img src="images/logo-rest.png">
+                        </div>
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                            <div class="row">
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="Название сети" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <button type="button" class="btn btn-block bg-green waves-effect">
+                                        <i class="material-icons">save</i>
+                                        <span>СОХРАНИТЬ</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tables-tabs" ng-model="tabShow" ng-init="tabShow=2">
+                                        <ul class="nav nav-tabs tab-col-green" role="tablist">
+                                            <li role="presentation" ng-class="{'active':tabShow==1}">
+                                                <a ng-click="tabShow=1">
+                                                    МЕНЮ
+                                                </a>
+                                            </li>
+                                            <li role="presentation" ng-class="{'active':tabShow==2}">
+                                                <a ng-click="tabShow=2">
+                                                    РЕСТОРАНЫ
+                                                </a>
+                                            </li>
+                                            <li role="presentation" ng-class="{'active':tabShow==3}">
+                                                <a ng-click="tabShow=3">
+                                                    КАТЕГОРИИ БЛЮД
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" ng-if="tabShow==1">
+                                            
+                                        </div>
+                                        <div class="tab-content" ng-if="tabShow==2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Адрес" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Договор" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <textarea rows="4" class="form-control no-resize" placeholder="Контактная инфорация"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="email" class="form-control" placeholder="E-mail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="Контактное лицо" />
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="Логин" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="password" class="form-control" placeholder="Пароль" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4>Точки выдачи</h4>
+                                            <button type="button" class="btn btn-block bg-green waves-effect">
+                                                <i class="material-icons">save</i>
+                                                <span>Добавить точку выдачи</span>
+                                            </button>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-networks">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Точка выдачи</th>
+                                                            <th>GPS</th>
+                                                            <th class="align-center">Удалить</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Ул. Исаковского 28</td>
+                                                            <td>30.81258 40.56784</td>
+                                                            <td class="align-center">
+                                                                <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                                    <i class="material-icons">delete_sweep</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Остановка автобуса</td>
+                                                            <td>30.81258 40.56784</td>
+                                                            <td class="align-center">
+                                                                <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                                    <i class="material-icons">delete_sweep</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>У дверей ресторана</td>
+                                                            <td>30.81258 40.56784</td>
+                                                            <td class="align-center">
+                                                                <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                                    <i class="material-icons">delete_sweep</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <nav>
+                                                    <ul class="pagination">
+                                                        <li class="disabled">
+                                                            <a href="javascript:void(0);" class="waves-effect">
+                                                                <i class="material-icons">chevron_left</i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="active"><a href="javascript:void(0);" class="waves-effect">1</a></li>
+                                                        <li><a href="javascript:void(0);" class="waves-effect">2</a></li>
+                                                        <li><a href="javascript:void(0);" class="waves-effect">3</a></li>
+                                                        <li><a href="javascript:void(0);" class="waves-effect">4</a></li>
+                                                        <li><a href="javascript:void(0);" class="waves-effect">5</a></li>
+                                                        <li>
+                                                            <a href="javascript:void(0);" class="waves-effect">
+                                                                <i class="material-icons">chevron_right</i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <h4>Режим работы</h4>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-networks">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>День недели</th>
+                                                            <th>С</th>
+                                                            <th>По</th>
+                                                            <th>Круглосуточно</th>
+                                                            <th>Закрыто</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Понедельник</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" checked />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" checked />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Вторник</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Среда</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Четверг</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Пятница</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Суббота</td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td><input type="text" class="form-control" /></td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" class="chk-col-green" />
+                                                            </td>
+                                                        </tr>
+                                                <tr>
+                                                    <td>Воскресенье</td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td>
+                                                        <input type="checkbox" class="chk-col-green" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" class="chk-col-green" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h4>Меню сети</h4>
+                                    <button type="button" class="btn bg-green waves-effect">
+                                        <i class="material-icons">edit</i>
+                                        <span>Изменить меню для данного заведения</span>
+                                    </button>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-networks">
+                                            <thead>
+                                                <tr>
+                                                    <th>Фото</th>
+                                                    <th>Название</th>
+                                                    <th>Описание</th>
+                                                    <th>Цена</th>
+                                                    <th>Время готовки</th>
+                                                    <th>Доступность</th>
+                                                    <th class="align-center">Блокировать</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><img src="images/logo-rest.png"></td>
+                                                    <td>Сендвич с семгой</td>
+                                                    <td>Нежные булочки с семгой и сыром 250 г</td>
+                                                    <td>210</td>
+                                                    <td>15</td>
+                                                    <td>всегда</td>
+                                                    <td class="align-center">
+                                                        <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">lock</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="images/logo-rest.png"></td>
+                                                    <td>Сендвич с семгой</td>
+                                                    <td>Нежные булочки с семгой и сыром 250 г</td>
+                                                    <td>210</td>
+                                                    <td>15</td>
+                                                    <td>всегда</td>
+                                                    <td class="align-center">
+                                                        <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">lock</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="images/logo-rest.png"></td>
+                                                    <td>Сендвич с семгой</td>
+                                                    <td>Нежные булочки с семгой и сыром 250 г</td>
+                                                    <td>210</td>
+                                                    <td>15</td>
+                                                    <td>всегда</td>
+                                                    <td class="align-center">
+                                                        <button type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">lock</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="img-upload">
+                                                            <label>
+                                                                <input type="file" class="form-control" />
+                                                                <span>Выбрать фото</span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td><input type="text" class="form-control" /></td>
+                                                    <td><input type="text" class="form-control" value="всегда" /></td>
+                                                    <td class="align-center">
+                                                        <button type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">done</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <nav>
+                                            <ul class="pagination">
+                                                <li class="disabled">
+                                                    <a href="javascript:void(0);" class="waves-effect">
+                                                        <i class="material-icons">chevron_left</i>
+                                                    </a>
+                                                </li>
+                                                <li class="active"><a href="javascript:void(0);" class="waves-effect">1</a></li>
+                                                <li><a href="javascript:void(0);" class="waves-effect">2</a></li>
+                                                <li><a href="javascript:void(0);" class="waves-effect">3</a></li>
+                                                <li><a href="javascript:void(0);" class="waves-effect">4</a></li>
+                                                <li><a href="javascript:void(0);" class="waves-effect">5</a></li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="waves-effect">
+                                                        <i class="material-icons">chevron_right</i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+
+                                        <button type="button" class="btn bg-green waves-effect">
+                                            Сохранить изменения
+                                        </button>
+                                        <button type="button" class="btn bg-green waves-effect">
+                                            Сохранить изменения и создать новый ресторан
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-content" ng-if="tabShow==3">                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

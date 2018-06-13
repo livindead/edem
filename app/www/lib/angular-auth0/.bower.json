@@ -1,0 +1,22 @@
+{
+  "name": "angular-auth0",
+  "main": "angular-auth0.js",
+  "version": "2.0.0-beta.1",
+  "dependencies": {
+    "angular": "*",
+    "auth0.js": "^8.0.0"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
+  },
+  "homepage": "https://github.com/auth0/angular-auth0",
+  "_release": "2.0.0-beta.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0-beta.1",
+    "commit": "713b2ae3c2bdccddc91b94a20299d476a469c000"
+  },
+  "_source": "https://github.com/auth0/angular-auth0.git",
+  "_target": "^2.0.0-beta.0",
+  "_originalSource": "angular-auth0"
+}

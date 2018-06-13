@@ -1,0 +1,71 @@
+<ion-view view-title="Еда в сети">
+		<ion-nav-bar class="bar-stable menu-top-bar green-menu">
+	 
+		<ion-nav-buttons side="left">
+			<div ng-hide="false">
+				<button ng-click="backBtn()" class="button button-icon button-clear ion-android-arrow-back">
+				</button>
+				
+			</div>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content>
+		<ion-spinner class="edim-spiner" ng-show="show.loader" icon="spiral"></ion-spinner>
+		<div class="row no-padding catalog-items">
+			<div class="col no-padding" >
+				<div ng-show=" dinners.length <= 0" class="card">
+					  <div class="item item-text-wrap">
+					    о_О Вся еда закончилась.  
+					  </div>
+				</div>
+
+				<div class="catalog-item" ng-repeat="item in dinners">
+					<div class="catalog-item-bg" ng-style="item.image != '' && {'background-image': 'url(http://edem-edim.ru/server/public/image/{{item.image}})'}" ng-click="addToCart(item);activ = !activ;" ng-model="activ" ng-init="activ = false">
+						
+					</div>
+					 
+
+					<div class="catalog-item-btn">
+						<div class="add-to-card" >
+
+							<div ng-show="activ" class="add-to-card">
+	                            <img src="img/catalog-ico-add.png">
+	                        </div>
+
+
+						</div>
+						<div ng-click="addToCartByButtons(item);activ = true;" class="buttons-add">
+							<button ng-click="openNumberPicker(item,item.count)" class="button add-card">Добавить</button>
+							<button ng-disabled="!activ" class="button rem-card">Количество</button>
+							<input ng-disabled="!activ" type="number" name="" ng-model=" item.cart_count" class="item-add" value="0">
+						</div>
+					</div>
+					<div class="catalog-item-about row">
+						<div class="catalog-item-text col col-75">
+							<h2>{{item.title}}</h2>
+							<p>{{item.description}}</p>
+						</div>
+						<div class="catalog-item-price col">
+							{{item.price}} Р
+						</div>
+					</div>
+				</div>
+	
+			</div>
+		</div>
+	</ion-content>
+	<div class="all-order" ng-show="cartShow" ng-init="cartShow = false">
+		<div class="row">
+			<div class="col">
+				<button ng-click="selectStuardOnMap()" class="button button-clear button-full button-green">
+					ЗАКАЗАТЬ
+				</button>
+			</div>
+			<div class="col all-costs-block">
+				<p>Общая сумма</p>
+				<p class="all-costs">{{totalPrice}} р.</p>
+			</div>
+		</div>
+	</div>
+
+</ion-view>

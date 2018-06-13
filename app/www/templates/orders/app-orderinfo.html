@@ -1,0 +1,99 @@
+<ion-view view-title="">
+	<ion-nav-bar class="bar-stable menu-top-bar white-menu">
+		<ion-nav-buttons side="left">
+			<a class="button button-icon button-clear button-back-arrow" href="#/app/orders">
+				<img src="img/back-arrow.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Информация о заказе</h1>
+			</div>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content class="order-info-page">
+		<div class="order-info-top">
+			<div class="row no-padding stuard-profile" ng-hide="false">
+				<div class="col col-33">
+					<p>Заказ номер<br><span>{{orderInfo.id}}</span></p>
+				</div>
+				<div class="col col-33 stuard-img">
+					<img ng-if="orderInfo.stuard_avatar != '' &&  orderInfo.stuard_avatar != null " ng-src="https://cp.edem-edim.ru/public/image/{{orderInfo.point_image}}">
+					<img ng-if="orderInfo.stuard_avatar == '' ||  orderInfo.stuard_avatar == null " ng-src="img/map-point-no-photo.png">
+				</div>
+				<div class="col col-33">
+					<p>Выдача через<br><span>{{orderInfo.arrival_time}} мин</span></p>
+				</div>
+			</div>
+			<div class="row no-padding">
+				<div class="col stuard-name">
+					{{orderInfo.stuard_name}}
+				</div>
+			</div>
+			<div class="row no-padding">
+				<div class="col no-padding stuard-addres">
+					{{orderInfo.point_adress}}
+				</div>
+			</div>
+			<div class="row no-padding" ng-hide="true">
+				<div class="col">
+					<div ng-class="statusClass(orderInfo.status)" class="stuard-status">
+						<div ng-if="orderInfo.status == 0" class="red-order-bg">не оплачен</div>
+						<div ng-if="orderInfo.status == 1">подготовка</div>
+						<div ng-if="orderInfo.status == 2">ожидает вас</div>
+						<div ng-if="orderInfo.status == 3">выполнен</div>
+						<div ng-if="orderInfo.status == 4">отменен</div>
+					</div>
+				</div>
+			</div>
+			<div class="row button-cancel no-padding" ng-if="orderInfo.status != 3 && orderInfo.status != 4">
+				<div class="col no-padding">
+					<button ng-click="cancelOrder(orderInfo.id)"  class="button button-clear button-full button-grey">
+						ОТМЕНИТЬ ЗАКАЗ 
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="order-info-list">
+			<div class="list">
+				<a class="item item-thumbnail-left item-order-info" ng-repeat="food in orderInfo.dinner_arr">
+					<img ng-if="food.image != '' " ng-src="https://cp.edem-edim.ru/public/image/{{food.image}}">
+					<img ng-if="food.image == '' " ng-src="img/cat-img-ico.png">
+					<div class="row no-padding order-text-info">
+						<div class="col no-padding">
+							<h2>{{food.title}}</h2>
+							<p>Кол-во: <span>{{food.cart_count}}</span></p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="row no-padding">
+				<div class="col stuard-addres">
+					<div ng-if="orderInfo.status == 0">
+						Вы НЕ ОПЛАТИЛИ заказ.<br>Пожалуйста, оплатите заказ, если хотите кушать. Неоплаченные заказы не готовятся.
+					</div>
+				</div>
+			</div>
+			<div class="row button-orders">
+				<div class="col" style="padding: 0 30px;">
+					<button ng-click="repeatOrder()" ng-class="statusClass(0)" analytics-event="Кнопка оплата" analytics-category="Кнопки" class="button button-clear button-full button-green" ng-if="orderInfo.status == 0">
+						Оплатить
+					</button>
+					<a href="tel:+7{{orderInfo.point_phone}}" analytics-event="Звонок в ресторан" analytics-category="Кнопки" class="button button-clear button-full button-grey" >
+						<i class="icon ion-ios-telephone"></i> Позвонить в ресторан
+					</a>
+					<button ng-click="openNavi(orderInfo.point_adress)" ng-if="orderInfo.status != 4" analytics-event="Открыть в навигаторе" analytics-category="Кнопки" class="button button-clear button-full button-green">
+						В навигатор
+					</button>
+				</div>
+			</div>
+			<div class="btn-client">
+				<button ng-class="{'button-stable':smsActiv}" ng-disabled="smsActiv" ng-init="smsActiv = false" ng-click="sendSMS(orderInfo.id,orderInfo.stuard_id,1);smsActiv = true" ng-if="(orderInfo.status == 2 || orderInfo.status == 1)" class="button button-full green-button">
+					ПРИБЫЛ НА МЕСТО
+				</button>
+			</div>
+			<div class="total-sum">
+				<p>Общая сумма:</p>
+				<p class="total-sum-number">{{orderInfo.price}} Р</p>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

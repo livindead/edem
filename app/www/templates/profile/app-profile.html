@@ -1,0 +1,66 @@
+<ion-view view-title="">
+	<ion-nav-bar class="bar-stable menu-top-bar white-menu profile-bar">
+		<ion-nav-buttons side="left">
+			<a class="button button-icon button-menu" menu-toggle="left">
+				<img src="img/map-menu.png">
+			</a>
+			<div class="title title-center header-item">
+				<h1>Мой профиль</h1>
+			</div>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+	<ion-content class="profile-page">
+		<div class="profile-page-container">
+			<div class="row">
+				<div class="col">
+					<div class="profile-img">
+						<img ng-if="!user.avatar" src="img/avatar.png">
+						<div ng-if="user.avatar" style="background-image:url(http://edem-edim.ru/server/public/image/{{user.avatar}});" class="avatar"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="profile-name">
+						<p class="profile-f">{{user.name}}</p>
+						<p class="profile-io">{{user.lname}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="profile-line"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="profile-car row">
+						<div class="profile-car-info col col-75">
+							<div class="car-make">
+								{{user.car_title}}
+							</div>
+							<div class="car-number">
+								<p> {{user.car_number}}</p>
+							</div>
+						</div>
+						<div class="profile-car-color col">
+							<div ng-class="user.car_color" class="car-color"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="profile-link">
+						<a href="#/app/editprofile" class="button button-clear button-light-green">
+							ЛИЧНЫЕ ДАННЫЕ
+						</a>
+						<a ng-click="logout()" class="button button-clear button-light-green">
+							ВЫХОД
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

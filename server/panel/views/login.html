@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="center-login-block">
+		<img src="images/logo.png">
+		<form>
+		    <input type="hidden" name="auth" value="y">
+		    <input placeholder="Логин" name="login" type="login" ng-model="login" class="form-control">
+		    <input placeholder="Пароль" name="password" type="password" ng-model="pass" class="form-control">
+		    <input type="submit" value="Вход" ng-click="signin(login,pass)" class="btn btn-lg btn-block bg-green waves-effect">
+		</form>    
+	</div>
+</div>

@@ -1,0 +1,545 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card fixed-card">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 rest-logo">
+                            <img src="images/logo-rest.png">
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <h4>Быстрое добавление нового ресторана:</h4>
+                            <div class="row fixed-row">
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <select class="form-control show-tick" ng-model="networkId"  >
+                                        <option ng-repeat="item in networks" ng-value="item.id" >{{item.title}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <button type="button" class="btn btn-block bg-green waves-effect" ng-click="addFastPoint(networkId, restAddressAdd, restContactsAdd, restEmailAdd, restLoginAdd, restPassAdd, restContractAdd)">
+                                        <i class="material-icons">save</i>
+                                        <span>СОХРАНИТЬ</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row scroll-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Адрес" ng-model="restAddressAdd" />
+                                    <input type="text" class="form-control" placeholder="Договор" ng-model="doc" />
+                                    <input type="text" class="form-control" placeholder="Телефон" ng-model="restContactsAdd" />
+                                    <input type="email" class="form-control" placeholder="E-mail" ng-model="restEmailAdd" />
+
+                                    <input type="text" class="form-control" placeholder="Логин" ng-model="restLoginAdd" />
+                                    <input type="text" class="form-control" placeholder="Пароль" ng-model="restPassAdd" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>
+                        РЕСТОРАНЫ
+                        <small>Просотр и изменение информации о ресторанах, меню и категориях блюд</small>
+                    </h2>
+                    <ul class="header-dropdown">
+                        <li class="dropdown">
+                            <a type="button" class="btn btn-default btn-block btn-lg waves-effect" href="#!/restaurant-new">
+                                <i class="material-icons col-black">add</i>
+                                <span>ДОБАВИТЬ РЕСТОРАН</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body tables-tabs" ng-model="editLine;tabShow;lockLine;" ng-init="editLine=true;tabShow=2;lockLine=false;">
+                    <ul class="nav nav-tabs tab-col-green" role="tablist">
+                        <li role="presentation" ng-class="{'active':tabShow==1}">
+                            <a ng-click="tabShow=1;firtsLoaderByTab(tabShow);" class="font-bold font-18">
+                                <i class="material-icons">view_list</i>
+                                МЕНЮ
+                            </a>
+                        </li>
+                        <li role="presentation" ng-class="{'active':tabShow==2}">
+                            <a ng-click="tabShow=2;firtsLoaderByTab(tabShow);" class="font-bold font-18">
+                                <i class="material-icons">room_service</i>
+                                РЕСТОРАНЫ
+                            </a>
+                        </li>
+                        <li role="presentation" ng-class="{'active':tabShow==3}">
+                            <a ng-click="tabShow=3;firtsLoaderByTab(tabShow);" class="font-bold font-18">
+                                <i class="material-icons">bookmark</i>
+                                КАТЕГОРИИ БЛЮД
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" ng-if="tabShow==1">
+                        <div role="tabpanel" class="table-responsive tab-pane fade in active">
+                            <h4>Поиск по меню:</h4>
+                            <div class="row clearfix search-table">
+                                <div class="col-md-4">
+                                    <input type="search" name="restSearch" ng-model="searchLine" class="form-control" placeholder="Найти блюдо в меню..">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" ng-click="searchDinner(searchLine)" class="btn btn-block bg-green waves-effect">
+                                        <i class="material-icons">search</i>
+                                        <span>НАЙТИ</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h4>Список меню в категориях:</h4>
+                            <div class="row clearfix select-rest">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6"> 
+                                    <select class="form-control show-tick" ng-model="sel" ng-click="sortCategoryByNet(sel)">
+                                        <option  ng-value="''" >Все категории</option>
+                                        <option ng-repeat="item in categorys" ng-value="item.id" >{{item.title}}</option>
+                             
+                                    </select>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 align-right">
+                                    <button type="button" class="btn bg-blue btn-lg waves-effect">
+                                        Импорт Exel
+                                    </button>
+                                </div>
+                            </div>
+
+                              <div class="content-loader" ng-if="loader">
+                                        <div class="preloader">
+                                            <div class="spinner-layer pl-red">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>Загрузка данных...</p>
+                            </div>
+
+
+                            <table class="table table-hover table-networks">
+                                <thead>
+                                    <tr>
+                                        <th>Фото</th>
+                                        <th>Категория</th>
+                                        <th>Название</th>
+                                        <th>Описание</th>
+                                        <th>Цена, руб</th>
+                                        <th>Время готовки, минуты</th>
+                                        <th>Доступность</th>
+                                        <th class="align-center">Изменить</th>
+                                        <th class="align-center">Блокировка</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in dinners | filter:{id: catSort}">
+                                        <td>
+                                            <img src="images/logo-rest.png" ng-show="editLine">
+                                            <div class="img-upload" ng-show="!editLine">
+                                                <label>
+                                                    <input type="file" class="form-control" />
+                                                    <span>Выбрать фото</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label for="menuCategory" ng-show="editLine">{{item.category_title}}</label>
+                                            <select class="form-control show-tick" ng-model="menuCategory" ng-init="menuCategory = item.category_id"  ng-show="!editLine">
+                                                <option ng-repeat="item in categorys" ng-value="item.id" >{{item.title}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <label for="menuName" ng-show="editLine">{{item.title}}</label>
+                                            <input type="text" name="menuName" class="form-control" id="menuName" ng-show="!editLine" value="Сендвич с семгой">
+                                        </td>
+                                        <td>
+                                            <label for="menuDescrip" ng-show="editLine">{{item.description}}</label>
+                                            <input type="text" name="menuDescrip" class="form-control" id="menuDescrip" ng-show="!editLine" value="Нежные булочки с семгой и сыром 250 г">
+                                        </td>
+                                        <td>
+                                            <label for="menuPrice" ng-show="editLine">{{item.price}}</label>
+                                            <input type="text" name="menuPrice" class="form-control" id="menuPrice" ng-show="!editLine" value="210">
+                                        </td>
+                                        <td>
+                                        <label for="menuTime" ng-show="editLine">{{item.cook_time}}</label>
+                                            <input type="text" name="menuTime" class="form-control" id="menuTime" ng-show="!editLine" value="15">
+                                        </td>
+                                        <td>всегда</td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-amber btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=false" ng-show="editLine" title="Редактировать">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=true" ng-show="!editLine" title="Сохранить">
+                                                <i class="material-icons">save</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="lockLine=true" ng-show="!lockLine" title="Блокировать">
+                                                <i class="material-icons">lock_open</i>
+                                            </a>
+                                            <a type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float" ng-click="lockLine=false" ng-show="lockLine" title="Разблокировать">
+                                                <i class="material-icons">lock</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+
+                                            <div class="img-upload" ng-if="!image_loader">
+                                                <label >
+                                                    <input type="file" ng-model="picFile"  ngf-select="uploadLogo($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="3MB" class="form-control" />
+                                                    <span>Выбрать фото</span>                                                    
+                                                </label>
+                                            </div>
+                                            <div class="preloader pl-size-xs" ng-if="image_loader" >
+                                                    <div class="spinner-layer pl-red-grey">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                        <div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                            </div> 
+
+                                        </td>
+                                        <td>
+                                            <select class="form-control show-tick">
+                                                <option value="">Сендвичи</option>
+                                                <option value="">Супы</option>
+                                                <option value="">Категория 3</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Введите название" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Описание, состав, порции, вес" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Цена" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Время в минутах" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" value="всегда" disabled />
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <button type="button" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float" title="Сохранить и добавить" >
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <nav>
+                                <ul class="pagination" ng-model="dinnerPage" ng-init="dinnerPage = 0">
+                                    <li class="disabled">
+                                        <a ng-click="dinnerPage =dinnerPage-1; getAllDinners(dinnerPage);scrollTop();" ng-disabled="dinnerPage == 0" class="waves-effect">
+                                            <i class="material-icons">chevron_left</i>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="javascript:void(0);" class="waves-effect">{{dinnerPage}}</a></li>
+                                   
+                                    <li>
+                                        <a ng-click="dinnerPage =dinnerPage+1; getAllDinners(dinnerPage);scrollTop();" class="waves-effect">
+                                            <i class="material-icons">chevron_right</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" ng-if="tabShow==2">
+                        <div role="tabpanel" class="table-responsive tab-pane fade in active">
+                            <h4>Поиск по ресторанам:</h4>
+                            <div class="row clearfix search-table">
+                                <div class="col-md-4">
+                                    <input type="search" ng-init="search.$ = '' " ng-model="search.$" name="restSearch" class="form-control" placeholder="Найти ресторан..">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-block bg-green waves-effect">
+                                        <i class="material-icons">search</i>
+                                        <span>НАЙТИ</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h4>Список ресторанов: </h4>
+                            <div class="row clearfix select-rest">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <select class="form-control show-tick" ng-model="sel" ng-click="sortByNet(sel)">
+                                        <option ng-value="''" >Все сети</option>
+                                        <option ng-repeat="item in networks" ng-value="item.id" >{{item.title}}</option>
+                             
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="content-loader" ng-if="loader">
+                                        <div class="preloader">
+                                            <div class="spinner-layer pl-red">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>Загрузка данных...</p>
+                            </div>
+
+                            <table class="table table-hover table-networks"  ng-if="!loader">
+                                <thead>
+                                    <tr>
+                                        <th>Адрес</th>
+                                        <th>Контакты</th>
+                                        <th>E-mail</th>
+                                        <th>Сеть</th>
+                                        <th>Login/ Password</th>
+                                        <th>Договор</th>
+                                        <th class="align-center button-col">Изменить</th>
+                                        <th class="align-center button-col">Просмотр</th>
+                                        <th class="align-center button-col">Блокировка</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in restaurants  | filter:search:strict | filter:{id: netSort} | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize ">
+                                        <td> 
+                                            <label for="restAddress" ng-show="editLine">{{item.adress}}</label>
+                                            <input type="text" name="restAddress" class="form-control" ng-model="adress" ng-init="adress = item.adress" ng-disabled="editLine" ng-show="!editLine">
+                                        </td>
+                                        <td>
+                                            <label for="restContacts" ng-repeat="aitem in item.phone track by $index" > {{$index+1}}. {{aitem}} </label>
+                                            
+                                            <br>
+                                            <input type="text" name="restContacts" class="form-control" ng-model="Phone" ng-disabled="editLine" ng-show="!editLine">
+
+                                            <button type="button" class="btn bg-amber btn-xs waves-effect   waves-float" ng-disabled="editLine" ng-show="!editLine" title="Добавить" ng-click="addPhone(item.id,Phone,item.phone)">
+                                                Добавить
+                                            </button>
+
+                                        </td>
+                                        <td>
+                                            <label for="restEmail" ng-show="editLine">{{item.email}}</label>
+                                            <input type="text" name="restEmail" class="form-control"  ng-model="restEmail" ng-init="restEmail = item.email" ng-disabled="editLine" ng-show="!editLine">
+                                        </td>
+                                        <td>
+                                            <label for="restMenu" ng-show="editLine">{{item.network_title}}</label>
+                                           
+                                        </td>
+                                        <td>
+                                            <label for="restLogin" ng-show="editLine"> {{item.login}} | {{item.password}} </label>
+                                            <input type="text" name="restLogin" class="form-control" ng-model="restLogin" ng-init="restLogin = item.login" ng-disabled="editLine" ng-show="!editLine"><input type="text" name="restPassword" class="form-control" ng-model="restPassword" ng-init="restPassword = item.password"  ng-disabled="editLine" ng-show="!editLine">
+                                        </td>
+                                        <td>
+                                            <label for="restContract" ng-show="editLine"> {{item.contact_doc}} </label>
+                                            <input type="text" name="restContract" class="form-control" ng-model="restContract" ng-init="restContract = item.contact_doc"  ng-disabled="editLine" ng-show="!editLine">
+                                        </td>
+
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-amber btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=false" ng-show="editLine" title="Редактировать">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="editPoint(item.id, adress,item.phone,restEmail,restLogin,restPassword,restContract ); editLine=true;" ng-show="!editLine" title="Сохранить">
+                                                <i class="material-icons">save</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-orange btn-circle-lg waves-effect waves-circle waves-float" href="#!/restaurant-new" title="Просмотреть подробную информацию">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float"  ng-click="changeLockStatus(item.id,item.is_allow)"   ng-show="item.is_allow == 0 " title="Блокировать">
+                                                <i class="material-icons">lock</i>
+                                            </a>
+                                            <a type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float" ng-click="changeLockStatus(item.id,item.is_allow)"  ng-show="item.is_allow == 1 " title="Разблокировать">
+                                                <i class="material-icons">lock_open</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <input type="text" ng-model="restAddressAdd" class="form-control" placeholder="Адрес точки">
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="restContactsAdd" class="form-control" placeholder="Контакты">
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="restEmailAdd" class="form-control" placeholder="E-mail">
+                                        </td>
+                                        <td>
+                                            <select class="form-control show-tick" ng-model="networkId"  ">
+                                                <option ng-repeat="item in networks" ng-value="item.id" >{{item.title}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="restLoginAdd" class="form-control" placeholder="Логин">
+                                            <input type="text" ng-model="restPassAdd" class="form-control" placeholder="Пароль">
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="restContractAdd" class="form-control" placeholder="Договор">
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <button type="button" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float" title="Сохранить и добавить" ng-click="addFastPoint(networkId, restAddressAdd, restContactsAdd, restEmailAdd, restLoginAdd, restPassAdd, restContractAdd)">
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="waves-effect" ng-class="{'disabled':currentPage == 0}" ng-click="setPrevPage()" >
+                                        <a href="">
+                                            <i class="material-icons">chevron_left</i>
+                                        </a>
+                                    </li>
+                                    <li ng-repeat="item in arrOfPages" ng-class="{'active': item.id == currentPage}" ng-click="setPageByNum(item.id)" class="waves-effect"><a href="" >{{item.id}}</a></li>
+                                    
+                                    <li ng-class="{'disabled':currentPage+1 > numberOfPages() -1  }" ng-click="setNexPage()" >
+                                        <a href="" class="waves-effect" class="waves-effect">
+                                            <i class="material-icons">chevron_right</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" ng-if="tabShow==3">
+                        <div role="tabpanel" class="table-responsive tab-pane fade in active">
+                            <h4>Поиск по категориям:</h4>
+                            <div class="row clearfix search-table">
+                                <div class="col-md-4">
+                                    <input type="search" ng-init="searchCat.$ = '' " ng-model="searchCat.$" name="restSearch" class="form-control" placeholder="Найти категорию..">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-block bg-green waves-effect">
+                                        <i class="material-icons">search</i>
+                                        <span>НАЙТИ</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h4>Список категорий в сетях:</h4>
+                            <div class="row clearfix select-rest">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <select class="form-control show-tick" ng-model="sel" ng-click="sortCategoryByNet(sel)">
+                                        <option  ng-value="''" >Все сети</option>
+                                        <option ng-repeat="item in networks" ng-value="item.id" >{{item.title}}</option>
+                             
+                                    </select>
+                                </div>
+                            </div>
+                            <table class="table table-hover table-networks">
+                                <thead>
+                                    <tr>
+                                        <th>Картинка</th>
+                                        <th>Название</th>
+                                        <th class="align-center">Изменить</th>
+                                        <th class="align-center">Блокировка</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in categorys | filter:searchCat:strict | filter:{id: catSort}">
+                                        <td>
+                                            <img src="images/logo-rest.png" ng-if="item.icon == '' " ng-show="editLine">
+                                            <img src="{{item.icon}}" ng-show="editLine" ng-if="item.icon != '' ">
+
+                                            <div class="img-upload" ng-show="!editLine">
+                                                <label>
+                                                    <input type="file" class="form-control" />
+                                                    <span>Выбрать фото</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label for="catName" ng-show="editLine">{{item.title}}</label>
+                                            <input type="text" name="catName" class="form-control" ng-model="catName" ng-init="catName = item.title" ng-disabled="editLine" ng-show="!editLine">
+                                        </td>
+
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-amber btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=false" ng-show="editLine" title="Редактировать">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="editLine=true" ng-show="!editLine" title="Сохранить">
+                                                <i class="material-icons">save</i>
+                                            </a>
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <a type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" ng-click="lockLine=true" ng-show="!lockLine" title="Блокировать">
+                                                <i class="material-icons">lock_open</i>
+                                            </a>
+                                            <a type="button" class="btn bg-deep-orange btn-circle-lg waves-effect waves-circle waves-float" ng-click="lockLine=false" ng-show="lockLine" title="Разблокировать">
+                                                <i class="material-icons">lock</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="align-center button-col">
+                                            <div class="img-upload">
+                                                <label>
+                                                    <input type="file" class="form-control" />
+                                                    <span>Выбрать фото</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="restContactsAdd" class="form-control" placeholder="Название категории блюд">
+                                        </td>
+                                        <td class="align-center button-col">
+                                            <button type="button" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float" title="Сохранить и добавить">
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="disabled">
+                                        <a href="javascript:void(0);" class="waves-effect">
+                                            <i class="material-icons">chevron_left</i>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="javascript:void(0);" class="waves-effect">1</a></li>
+                                    <li><a href="javascript:void(0);" class="waves-effect">2</a></li>
+                                    <li><a href="javascript:void(0);" class="waves-effect">3</a></li>
+                                    <li><a href="javascript:void(0);" class="waves-effect">4</a></li>
+                                    <li><a href="javascript:void(0);" class="waves-effect">5</a></li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="waves-effect">
+                                            <i class="material-icons">chevron_right</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

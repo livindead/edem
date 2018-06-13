@@ -1,0 +1,72 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card  p-b-10">
+                        <div class="header bg-green">
+                            <h2>
+                                УВЕДОМЛЕНИЯ
+                                <small>Уведомления</small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="btn-group choose-group m-b-30" ng-model="setTabs" ng-init="setTabs=1">
+                                <button type="button" class="btn waves-effect" ng-click="setTabs=1" ng-class="{'bg-green':setTabs==1}">Непрочитанные</button>
+                                <button type="button" class="btn waves-effect" ng-click="setTabs=2" ng-class="{'bg-green':setTabs==2}">Прочитанные</button>
+                                <button type="button" class="btn waves-effect" ng-click="setTabs=3" ng-class="{'bg-green':setTabs==3}">Написать в поддержку</button>
+                            </div>
+                            <div class="group-unread m-b-30" ng-if="setTabs==1">
+                                <div class="alert bg-green alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                                <div class="alert bg-green alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                                <div class="alert bg-green alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                            </div>
+                            <div class="group-read m-b-30" ng-if="setTabs==2">
+                                <div class="alert bg-green alert-dismissible read" role="alert">
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                                <div class="alert bg-green alert-dismissible read" role="alert">
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                                <div class="alert bg-green alert-dismissible read" role="alert">
+                                    Lorem ipsum dolor sit amet, id fugit tollit pro, illud nostrud aliquando ad est, quo esse dolorum id
+                                    <p class="col-black">12.05.2018, 22:00</p>
+                                </div>
+                            </div>
+                            <div class="group-write m-b-30" ng-if="setTabs==3">
+                                <p>№ 1290 от 15.05.2018</p>
+                                <textarea placeholder="Введите ваш вопрос" rows="3" class="form-control no-resize m-b-10"></textarea>
+                                <div class="img-upload m-b-10">
+                                    <label>
+                                        <input type="file" ngf-max-size="3MB" class="form-control" />
+                                        <span>Загрузить файл</span>
+                                    </label>
+                                </div>
+                                <button type="button" class="btn bg-green waves-effect">Отправить</button>
+                                <h3>Ранее в переписке</h3>
+                                <div class="messages m-t-20">
+                                    <div class="mess-answer">
+                                        В ответ на ваш запрос №23 вам выслана документация по почте
+                                    </div>
+                                    <div class="mess-question bg-green">
+                                        Запрос №23 от 12.03.2017 нам нужна документация с живыми печатями. Пришлите на адрес ул. Рогова 12, Москва 123456
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
